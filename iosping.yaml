@@ -1,0 +1,6 @@
+---
+- hosts:  all
+  tasks:
+      - name: ping
+        ios_ping:
+          dest: 10.10.10.10
