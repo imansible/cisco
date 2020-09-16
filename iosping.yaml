@@ -3,4 +3,4 @@
   tasks:
       - name: ping
         ios_ping:
-          dest: 10.10.10.10
+          dest: 192.168.50.251
