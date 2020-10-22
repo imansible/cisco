@@ -2,7 +2,7 @@
 - hosts:  all
   tasks:
     - name: block
-      block
+      block:
       - name: run multiple commands on remote nodes
         ios_command:
           commands:
