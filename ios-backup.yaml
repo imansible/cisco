@@ -1,6 +1,5 @@
 ---
 - hosts:  all
-  ansible_become: yes
   tasks:
       - name: run multiple commands on remote nodes
         ios_command:
