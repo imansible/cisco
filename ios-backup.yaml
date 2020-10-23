@@ -5,8 +5,8 @@
   gather_facts: no
   connection: local
   ansible_become: yes
-  ansible_become_method: enable
-  ansible_become_password: P@ssw0rd
+ # ansible_become_method: enable
+ # ansible_become_password: P@ssw0rd
   tasks:
     - name: block
       block:
