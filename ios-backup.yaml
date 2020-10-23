@@ -8,6 +8,6 @@
           commands:
             - copy flash:/c2960x-universalk9-mz.152-2.E7/c2960x-universalk9-mz.152-2.E7.bin tftp:
               prompt: '[{{ host: }}]'
-            answer: "\r"
+              answer: "\r"
 
 
