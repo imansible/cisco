@@ -4,8 +4,7 @@
   ignore_errors: no
   gather_facts: no
   connection: local
-  ansible_become_method: enable
-  ansible_become_password: P@ssw0rd
+  authorize: yes
   tasks:
     - name: block
       block:
