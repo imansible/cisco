@@ -3,8 +3,7 @@
   serial: 1
   ignore_errors: no
   gather_facts: no
-  connection: local
-  authorize: yes
+  connection: network_cli
   tasks:
     - name: block
       block:
