@@ -10,7 +10,7 @@
       - name: run multiple commands on remote nodes
         ios_command:
           commands:
-            - copy flash:/c2960x-universalk9-mz.152-2.E7/c2960x-universalk9-mz.152-2.E7.bin tftp:
+            - 'copy flash:/c2960x-universalk9-mz.152-2.E7/c2960x-universalk9-mz.152-2.E7.bin tftp:\r'
               host: "{{tftp}}"
               answer: "\r"
 
