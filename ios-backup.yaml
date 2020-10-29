@@ -13,7 +13,7 @@
       - name: COPY OVER IOS IMAGE
         ios_command:
            commands:
-              - command: "copy flash:/c2960x-universalk9-mz.152-2.E7/c2960x-universalk9-mz.152-2.E7.bin tftp: host: 192.168.51.130"
+              - command: "copy flash:/c2960x-universalk9-mz.152-2.E7/c2960x-universalk9-mz.152-2.E7.bin tftp: 192.168.51.130"
               - host: 192.168.51.130
               
         vars:
