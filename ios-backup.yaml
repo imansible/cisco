@@ -14,7 +14,7 @@
     - name: DEFINE PROVIDER
       set_fact:
         provider:
-          host: "{{ ansible_host }}"
+          host: "{{ 10.12.0.203 }}"
           username: "{{ creds['admin'] }}"
           password: "{{ creds['P@ssw0rd'] }}"
           auth_pass: "{{ creds['P@ssw0rd'] }}"
