@@ -5,14 +5,20 @@
   gather_facts: no
   connection: network_cli
   tasks:
-    - name: GATHER ROUTER FACTS
+    - name: GATHER SWITCH FACTS
       ios_facts:
 
     - name: UPGRADE IOS IMAGE IF NOT COMPLIANT
       block:
       - name: COPY OVER IOS IMAGE
-        command: "scp flash:/c2960x-universalk9-mz.152-2.E7/c2960x-universalk9-mz.152-2.E7.bin 192.168.51.130/test.bin"  
-
+        ios_command:
+           commands:
+              - command: "copy flash:/c2960x-universalk9-mz.152-2.E7/c2960x-universalk9-mz.152-2.E7.bin tftp:"
+                prompt: '[{{ new_ios_bin }}]'
+              answer: "\r"
+        vars:
+          ansible_command_timeout: 1800  
+ 
 
 
 
