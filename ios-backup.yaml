@@ -10,23 +10,17 @@
   tasks:
     - name: GATHER SWITCH FACTS
       ios_facts:
-
-    - name: DEFINE PROVIDER
-      set_fact:
-        provider:
-          host: "{{ 10.12.0.203 }}"
-          username: "{{ creds['admin'] }}"
-          password: "{{ creds['P@ssw0rd'] }}"
-          auth_pass: "{{ creds['P@ssw0rd'] }}"
-         
+    
     - name: UPGRADE IOS IMAGE IF NOT COMPLIANT
       block:
       - name: COPY OVER IOS IMAGE
         ios_command:
           commands:
-              - copy flash:/c2960x-universalk9-mz.152-2.E7/c2960x-universalk9-mz.152-2.E7.bin tftp:
-        vars:
-          ansible_command_timeout: 1800  
+            - command: 'copy flash:/c2960x-universalk9-mz.152-2.E7/c2960x-universalk9-mz.152-2.E7.bin tftp:'
+              prompt: 'Clear "show interface" counters on this interface \[confirm\]'
+              answer: 'y'
+          
+
  
 
 
