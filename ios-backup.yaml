@@ -11,7 +11,7 @@
     - name: UPGRADE IOS IMAGE IF NOT COMPLIANT
       block:
       - name: COPY OVER IOS IMAGE
-        command: "scp c2960x-universalk9-mz.152-2.E7.bin tftp://192.168.51.130/test.bin"  
+        command: "scp c2960x-universalk9-mz.152-2.E7.bin 192.168.51.130/test.bin"  
 
 
 
