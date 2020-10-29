@@ -1,9 +1,9 @@
 ---
 - hosts:  all
   serial: 1
-  ignore_errors: no
+  ignore_errors: yes
   gather_facts: no
-  connection: network_cli
+  connection: local
   tasks:
     - name: GATHER SWITCH FACTS
       ios_facts:
