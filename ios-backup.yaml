@@ -5,8 +5,8 @@
   gather_facts: no
   connection: local
   vars:
-  cli:
-    authorize: yes
+    cli:
+      authorize: yes
   tasks:
     - name: GATHER SWITCH FACTS
       ios_facts:
