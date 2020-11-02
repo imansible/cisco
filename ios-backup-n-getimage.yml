@@ -1,5 +1,5 @@
 ---
-- hosts: cisco_sg
+- hosts: all
   gather_facts: false
   connection: local
   vars:
