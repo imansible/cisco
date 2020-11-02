@@ -26,7 +26,7 @@
           - command: "copy tftp: {{ firmware_filename }}"
             check_all: True
             prompt:
-              - "Address or name of remote host"
+              - "Address or name of remote hostserver"
               - "Source filename"
               - "Destination filename"
             answer: 
