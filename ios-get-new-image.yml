@@ -32,5 +32,5 @@
             answer: 
               - "{{ tftp_ip }}"
               - "{{ firmware_filename }}"
-              - "test-{{ firmware_filename }}"
+              - "chan-{{ firmware_filename }}"
           provider: "{{ cli }}"
