@@ -1,0 +1,96 @@
+---
+- hosts: all
+  gather_facts: false
+  connection: local
+  vars:
+    ansible_command_timeout: 6000  
+  # # For CLI Version, Ansible without Tower
+  # vars:
+  # # This variable will be provided by Ansible Survey
+  #   firmware_version: 15.2(7)E2
+  #   firmware_filename: c2960x-universalk9-mz.152-7.E2.bin
+  #   firmware_md5_checksum: e970106add61fdf03b08391820aa1e20
+  #   tftp_ip: 192.168.51.130
+  #   password: P@ssw0rd
+  # # For CLI Version, Ansible without Tower
+  #   cli:
+  #     host: "10.12.0.203"
+  #     username: admin
+  #     password: P@ssw0rd
+  #     timeout: 1200
+  tasks:
+    - name: IOS become user
+      no_log: True
+      ios_command:
+        commands:
+          - command: enable
+            prompt: "Password:"
+            answer: "{{ password }}"
+        # provider: "{{ cli }}"      
+      
+    - name: Gather Facts For Device Information
+      ios_facts:
+        # provider: "{{ cli }}"
+ 
+    - name: End the play for hosts that already upgraded
+      meta: end_host
+      when:
+        - firmware_version == ansible_net_version
+ 
+    - set_fact:
+        device_host: "{{ inventory_hostname }}"
+ 
+    - name: Check For File Existence and Verify 
+      block:
+        - name: CHECK MD5 HASH
+          ios_command:
+            commands:
+              - command: "verify /md5 flash:{{ firmware_filename }}"
+          register: md5_result
+          vars:
+            ansible_command_timeout: 600
+      rescue:
+        - name: Firmware File does not exist          
+          meta: end_host             
+ 
+    - name: IOS Upgrade Firmware Config
+      ios_config:
+        lines:
+          - no boot system
+          - boot system flash:{{ firmware_filename }}
+          - do wr
+        # provider: "{{ cli }}"
+      vars:
+        ansible_command_timeout: 1800
+ 
+    - name: IOS Reload
+      ios_command:
+        commands:
+          - command: "reload"
+            check_all: True
+            prompt:
+              - "Proceed with reload?"
+            answer:
+              - "\r"
+        # provider: "{{ cli }}"
+      vars:
+        ansible_command_timeout: 1800
+ 
+    - name: Wait for Switch to Reboot
+      wait_for:
+        host: "{{ device_host }}"
+        port: 22
+        delay: 600
+        timeout: 1800
+      delegate_to: localhost
+ 
+    - name: Gather Facts For Verification
+      ios_facts:
+        # provider: "{{ cli }}"
+ 
+    - name: Verify Updated IOS Version
+      assert:
+        that:
+          - firmware_version == ansible_net_version
+        fail_msg: "IOS version {{ansible_net_version}} does not match firmware upgrade version {{firmware_version}}. Upgrade unsuccessful."
+        success_msg: "IOS version match firmware upgrade version. Upgrade Successful."
