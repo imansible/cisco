@@ -16,7 +16,7 @@
       - name: IOS Copy to TFTP
         ios_command:
           commands:
-          - command: "copy {{ running-config-file }} tftp:"
+          - command: "copy {{ running_config_file }} tftp:"
             check_all: True
             prompt:
               - "Address or name of remote host"
