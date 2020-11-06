@@ -1,0 +1,28 @@
+---
+#Ansible Tower Version
+- hosts: all
+  gather_facts: false
+  connection: local
+ 
+  tasks:
+      - name: IOS become user
+        no_log: True
+        ios_command:
+          commands:
+            - command: enable
+              prompt: "Password:"
+              answer: "{{ password }}"  
+ 
+      - name: IOS Copy to TFTP
+        ios_command:
+          commands:
+          - command: "copy {{ firmware_filename }} tftp:"
+            check_all: True
+            prompt:
+              - "Address or name of remote host"
+              - "Destination filename"
+            answer: 
+              - "{{ tftp_ip }}"
+              - "{{ backup_filename }}"
+        vars:
+          ansible_command_timeout: 420
